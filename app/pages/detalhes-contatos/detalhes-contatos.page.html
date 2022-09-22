@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button color="danger" defaulHref ="" ></ion-back-button>
+    </ion-buttons>
+    <ion-title id="l"  color="danger">Detalhes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item *ngIf="!modoDeEdicao">{{contatoSelecionado.nome}}</ion-item>
+  <ion-item *ngIf="!modoDeEdicao">Num: {{contatoSelecionado.telefone}}</ion-item>
+  <ion-item *ngIf="!modoDeEdicao">DDD: {{contatoSelecionado.DDD}}</ion-item>
+
+  <ion-button shape="round"  color="danger" *ngIf="!modoDeEdicao" (click)="IniciarEdicao()">Alterar Dados</ion-button>
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+    <ion-fab-button size="small"  color="danger" (click)="deletarProduto()" routerLink="/listagem-contatos">
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <form *ngIf="modoDeEdicao" (ngSubmit)="EncerrarEdicao()">
+    <ion-item>
+     <ion-label position="floating">Nome:</ion-label>
+     <ion-input [(ngModel)]="contatoSelecionado.nome" name="nome"></ion-input>
+    </ion-item> 
+ 
+    <ion-item>
+     <ion-label  position="floating">telefone:</ion-label>
+     <ion-input  [(ngModel)]="contatoSelecionado.telefone" name="telefone"></ion-input>
+    </ion-item> 
+ 
+    <ion-item>
+     <ion-label position="floating">DDD:</ion-label>
+     <ion-input  [(ngModel)]="contatoSelecionado.DDD" name="DDD"></ion-input>
+    </ion-item> 
+ 
+    <ion-button color="tertiary" shape="round" type="submit">Salvar</ion-button>
+  </form>
+
+</ion-content>

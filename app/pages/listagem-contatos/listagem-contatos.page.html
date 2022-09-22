@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button color="danger"  defaulHref ="">
+        <ion-icon name="return-down-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title id="n" color="danger">Contatos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let todosDados of todosDados" routerLink="/detalhes-contatos/{{todosDados.id}}">
+      <ion-label>{{todosDados.nome}}</ion-label>
+      <p> {{todosDados.telefone}}</p>
+      
+    </ion-item>  
+  </ion-list> 
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+    <ion-fab-button size="small" routerLink="/detalhes-contatos/-1" color="danger">
+      <ion-icon  name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>   
+
+</ion-content>
