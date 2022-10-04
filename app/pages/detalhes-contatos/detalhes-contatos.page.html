@@ -1,42 +1,73 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-back-button color="danger" defaulHref ="" ></ion-back-button>
-    </ion-buttons>
-    <ion-title id="l"  color="danger">Detalhes</ion-title>
-  </ion-toolbar>
-</ion-header>
 
+<div id="ll"></div>
 
-<ion-content>
-  <ion-item *ngIf="!modoDeEdicao">{{contatoSelecionado.nome}}</ion-item>
-  <ion-item *ngIf="!modoDeEdicao">Num: {{contatoSelecionado.telefone}}</ion-item>
-  <ion-item *ngIf="!modoDeEdicao">DDD: {{contatoSelecionado.DDD}}</ion-item>
+<ion-content  [fullscreen]="true">
 
-  <ion-button shape="round"  color="danger" *ngIf="!modoDeEdicao" (click)="IniciarEdicao()">Alterar Dados</ion-button>
+  
+  <ion-item id="bb" *ngIf="!modoDeEdicao">{{contatoSelecionado.nome}}</ion-item>
+  <ion-item id="bb" *ngIf="!modoDeEdicao">{{contatoSelecionado.sobrenome}}</ion-item>
+  <ion-item id="bb" *ngIf="!modoDeEdicao">{{contatoSelecionado.telefone}}</ion-item>
+  <ion-item id="bb" *ngIf="!modoDeEdicao">{{contatoSelecionado.email}}</ion-item>
+  <ion-item id="bb" *ngIf="!modoDeEdicao">{{contatoSelecionado.tipo_tel}}</ion-item>
+
+ 
+  
+  
+
+  <ion-fab vertical="bottom" horizontal="end" id="pppp" >
+    <ion-fab-button   color="tertiary" routerLink="/listagem-contatos">
+      <ion-icon  size="large" name="arrow-back-outline">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-button id="vvv" shape="round"  color="tertiary" *ngIf="!modoDeEdicao" (click)="IniciarEdicao()">Alterar Dados</ion-button>
   <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
-    <ion-fab-button size="small"  color="danger" (click)="deletarProduto()" routerLink="/listagem-contatos">
+    <ion-fab-button  size="small"  color="tertiary" (click)="showOptions()">
       <ion-icon name="trash-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <form *ngIf="modoDeEdicao" (ngSubmit)="EncerrarEdicao()">
+
+  <form *ngIf="modoDeEdicao" #form="ngForm"  (ngSubmit)="EncerrarEdicao()" [formGroup]="clienteForm">
     <ion-item>
      <ion-label position="floating">Nome:</ion-label>
-     <ion-input [(ngModel)]="contatoSelecionado.nome" name="nome"></ion-input>
+     <ion-input [(ngModel)]="contatoSelecionado.nome" formControlName="nome"></ion-input>
+      <small class="error-message" *ngIf="(clienteForm.get('nome').errors?.required || clienteForm.get('nome').errors?.minlength || clienteForm.get('nome').errors?.maxlength) && form.submitted">Nome invalido, Informe um nome de 3 a 50 caracteres</small>
+    </ion-item> 
+
+    <ion-item>
+      <ion-label  position="floating">Sobrenome:</ion-label>
+      <ion-input  [(ngModel)]="contatoSelecionado.sobrenome" formControlName="sobrenome"></ion-input>
+      <small class="error-message" *ngIf="(clienteForm.get('sobrenome').errors?.required || clienteForm.get('sobrenome').errors?.minlength || clienteForm.get('sobrenome').errors?.maxlength) && form.submitted">Nome invalido, Informe um nome de 3 a 50 caracteres</small> 
     </ion-item> 
  
     <ion-item>
      <ion-label  position="floating">telefone:</ion-label>
-     <ion-input  [(ngModel)]="contatoSelecionado.telefone" name="telefone"></ion-input>
+     <ion-input  [(ngModel)]="contatoSelecionado.telefone" formControlName="telefone"></ion-input>
+     <small class="error-message" *ngIf="(clienteForm.get('telefone').errors?.required || clienteForm.get('telefone').errors?.minlength || clienteForm.get('telefone').errors?.maxlength) && form.submitted">Telefone invalido</small>
     </ion-item> 
  
     <ion-item>
-     <ion-label position="floating">DDD:</ion-label>
-     <ion-input  [(ngModel)]="contatoSelecionado.DDD" name="DDD"></ion-input>
+     <ion-label position="floating">Email:</ion-label>
+     <ion-input  [(ngModel)]="contatoSelecionado.email" formControlName="email"></ion-input>
+     <small class="error-message" *ngIf="(clienteForm.get('email').errors?.required || clienteForm.get('email').errors?.email) && form.submitted">Email invalido, Informa um email valido</small>
     </ion-item> 
- 
-    <ion-button color="tertiary" shape="round" type="submit">Salvar</ion-button>
+
+    <ion-item>
+      <ion-select   [(ngModel)]="contatoSelecionado.tipo_tel" formControlName="tipo_tel"  [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Tipo Telefone">
+          <ion-select-option >Celular</ion-select-option>
+          <ion-select-option >Casa</ion-select-option>
+          <ion-select-option >Trabalho</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button id="sal" color="tertiary" shape="round" type="submit">Salvar</ion-button>
+    
   </form>
+  
+
 
 </ion-content>
+
+
